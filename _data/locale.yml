@@ -1,0 +1,67 @@
+# @start locale config
+## => English
+########################
+en: &EN
+  SUBSCRIBE               : "Subscribe"
+  READMORE                : "Read more"
+  SEARCH                  : "Search"
+  CANCEL                  : "Cancel"
+  VIEWS                   : "views"
+  LAST_UPDATED            : "Last updated"
+  PREVIOUS                : "PREVIOUS"
+  NEXT                    : "NEXT"
+  ARTICLE_DATE_FORMAT     : "%b %d, %Y"
+  ARTICLE_LIST_DATE_FORMAT: "%b %d"
+  STATISTICS              : "[POST_COUNT] post articles, [PAGE_COUNT] pages."
+  LICENSE_ANNOUNCE        : "This work is licensed under a [LICENSE] license."
+  POST_ON_GITHUB          : "Edit on Github"
+  FOLLOW_ME               : "Follow me on [NAME]."
+  FOLLOW_US               : "Follow us on [NAME]."
+  EMAIL_ME                : "Send me an Email."
+  EMAIL_US                : "Send us an Email."
+  COPYRIGHT_DATES         : "2021"
+
+en-GB:
+  <<: *EN
+en-US:
+  <<: *EN
+en-CA:
+  <<: *EN
+en-AU:
+  <<: *EN
+
+## => French
+########################
+fr: &FR
+  SUBSCRIBE               : "S'abonner"
+  READMORE                : "Plus"
+  SEARCH                  : "Recherche"
+  CANCEL                  : "Annuler"
+  VIEWS                   : "vues"
+  LAST_UPDATED            : "Dernière modification"
+  PREVIOUS                : "PRÉCÉDENT"
+  NEXT                    : "SUIVANT"
+  ARTICLE_DATE_FORMAT     : "%d %b, %Y"
+  ARTICLE_LIST_DATE_FORMAT: "%d %b"
+  STATISTICS              : "[POST_COUNT] articles, [PAGE_COUNT] pages."
+  LICENSE_ANNOUNCE        : "Ce travail est sous licence [LICENSE]."
+  POST_ON_GITHUB          : "Modifier sur Github"
+  FOLLOW_ME               : "Suivez-moi sur [NAME]."
+  FOLLOW_US               : "Suivez-nous sur [NAME]."
+  EMAIL_ME                : "Envoyez-moi un courriel."
+  EMAIL_US                : "Envoyez-nous un courriel"
+  COPYRIGHT_DATES         : "2021"
+  DONATE                  : "Faites un don de [NAME]."
+
+fr-BE:
+  <<: *FR
+fr-CA:
+  <<: *FR
+fr-CH:
+  <<: *FR
+fr-FR:
+  <<: *FR
+fr-LU:
+  <<: *FR
+
+# @end locale config

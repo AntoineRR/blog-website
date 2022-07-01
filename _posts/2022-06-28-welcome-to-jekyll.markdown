@@ -1,9 +1,9 @@
 ---
-layout: post
-title:  "Welcome to Jekyll!"
-date:   2022-06-28 21:59:17 +0100
-categories: jekyll update
+layout: article
+title: A placeholder blog
+mathjax: true
 ---
+
 You’ll find this post in your `_posts` directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run `jekyll serve`, which launches a web server and auto-regenerates your site when a file is updated.
 
 Jekyll requires blog post files to be named according to the following format:
