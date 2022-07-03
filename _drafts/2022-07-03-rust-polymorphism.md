@@ -79,7 +79,7 @@ print_area(&Rectangle { width: 2.0, height: 3.0 });
 print_area(&Circle { radius: 2.0 })
 {% endhighlight %}
 
-Everything seems to be fine! Let's complicate things a little and create either a Rectangle or a Circle depending on a boolean value, eventually provided by a user.
+[Everything seems to be fine](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=20911bea4cc174e96f3cca557d100b39)! Let's complicate things a little and create either a Rectangle or a Circle depending on a boolean value, eventually provided by a user.
 
 {% highlight rust %}
 // `is_circle` is provided by the user earlier in the code
