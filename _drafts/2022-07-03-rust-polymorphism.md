@@ -79,7 +79,7 @@ print_area(&Rectangle { width: 2.0, height: 3.0 });
 print_area(&Circle { radius: 2.0 })
 {% endhighlight %}
 
-Everything seems to be fine ([playground link](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=20911bea4cc174e96f3cca557d100b39))! Let's complicate things a little and create either a Rectangle or a Circle depending on a boolean value, eventually provided by a user.
+Everything seems to be fine ([playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=20911bea4cc174e96f3cca557d100b39))! Let's complicate things a little and create either a Rectangle or a Circle depending on a boolean value, eventually provided by a user.
 
 {% highlight rust %}
 // `is_circle` is provided by the user earlier in the code
@@ -131,11 +131,14 @@ pub fn print_area_impl(shape: &(impl Shape + ?Sized)) {
 }
 {% endhighlight %}
 
-As the `?Sized` trait bound specifies that an argument can either be `Sized` or not, we can use those functions with renferences to an instance of a concrete type or to a trait object ([playground link](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=32a2e18abbbc80b38ed9397569ca96fd)).
+As the `?Sized` trait bound specifies that an argument can either be `Sized` or not, we can use those functions with renferences to an instance of a concrete type or to a trait object ([playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=32a2e18abbbc80b38ed9397569ca96fd)).
+
+<!-- TODO: add a section about using dyn Shape as an argument type -->
+<!-- TODO: call with Boxed argument -->
 
 ## Pros and cons of each method
 
-<!-- TODO: develop -->
+<!-- TODO: develop, benchmark ? -->
 
 - Generics: a method for each type is created by the compiler
 - Dynamic dispatch: Slower because of vtable
