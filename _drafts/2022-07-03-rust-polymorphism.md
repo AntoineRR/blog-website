@@ -8,7 +8,7 @@ I often face polymorphism challenges when developing in Rust. I guess it is a ma
 
 <!--more-->
 
-## An example to better understand the issue
+# An example to better understand the issue
 
 Let's say we want to create a really simple project for calculating the area of various shapes. Easy right? We just have to define several struct that will have one shared behavior: the ability to calculate their area. Here's how we'll do it using Rust trait system:
 
@@ -47,7 +47,7 @@ pub fn print_area(shape: ...
 
 Wait... How will we go about the type of shape? It could either be a Rectangle or a Circle! In a classical OOP language, we would have a parent class to specify the type of the argument, but in Rust we only have... A trait? Let's see how we could use this trait to define the type of this argument.
 
-## Trait bounds for arguments
+# Trait bounds for arguments
 
 Rust provides several ways to specify that the argument of a function has to implement a trait, without ever mentioning its type. This feature is called a trait bound, and is something you apply on a generic type parameter.
 
@@ -94,7 +94,7 @@ print_area(&shape);
 Oh... The compiler refuses that the match arms return a different type :(
 Indeed, Rust wants to know the type of the `shape` variable at compile time, and thus this kind of thing is not allowed. We have to find a trick to store our `shape` variable. This is where trait objects join the party!
 
-## Trait objects
+# Trait objects
 
 For when you do not know the type of a variable in advance, Rust has a feature called dynamic dispatch. To declare a variable as dynamically dispatched, you have to use the `dyn` keyword.
 
@@ -107,6 +107,9 @@ let shape: &dyn Shape = match is_circle {
 {% endhighlight %}
 
 Well, this code compiles! We are now using a trait object to store our shape, which can either be a `Circle` or a `Rectangle`. Note that we have to use a reference to declare our variable here. This is because trait objects do not have a size known at compile time (they are dynamically sized), and hiding them behind a reference allows us to declare the variable, as references do have a known size.
+
+We could have used a smart pointer instead of a simple reference, for example a `Box`.
+{:.info}
 
 There is one drawback to using a trait object tho... We cannot use our previous `print_area` function with this shape variable! Indeed, our previous function is using generics, and what Rust doesn't tell you explicitely is that every generic types are expected to be `Sized` by default! As we use shape as an argument for our `print_area` method, Rust will understand that our generic type `T` is `dyn Shape`, which again is not `Sized`.
 
@@ -133,16 +136,36 @@ pub fn print_area_impl(shape: &(impl Shape + ?Sized)) {
 
 As the `?Sized` trait bound specifies that an argument can either be `Sized` or not, we can use those functions with renferences to an instance of a concrete type or to a trait object ([playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=32a2e18abbbc80b38ed9397569ca96fd)).
 
-<!-- TODO: add a section about using dyn Shape as an argument type -->
-<!-- TODO: call with Boxed argument -->
+If we used a `Box<dyn Shape>` instead of a `&dyn Shape` to store our `shape` variable, we can call the `print_area`s methods like this: `print_area_...(&*shape)`. This is because we first dereference the `Box` to access its inner value and then take a reference to it.
+{:.info}
 
-## Pros and cons of each method
+Another thing we could do is using `&dyn Shape` as the type of the `shape` argument!
+
+{% highlight rust %}
+// A method using a trait object
+pub fn print_area_dyn(shape: &dyn Shape) {
+    println!("{}", shape.get_area());
+}
+{% endhighlight %}
+
+Doing this allows us to use our method with both concrete type instances and trait objects as before ([playground](https://play.rust-lang.org/?version=stable&mode=debug&edition=2021&gist=bdc762428ca8311e5ac398facdef7e92)). So... How do we know what we should use as a type argument then?
+
+# Generics VS trait objects
 
 <!-- TODO: develop, benchmark ? -->
 
-- Generics: a method for each type is created by the compiler
-- Dynamic dispatch: Slower because of vtable
+As we saw before, the first three methods we wrote (`print_area_where`, `print_area_simplified`, and `print_area_impl`) rely on generics and really work the same way. This means we only have two methods to compare: using generics and using trait objects. As you may have guessed, none of these methods is inherently better than the other, and it all depends on the context. To really understand that, we should go deeper into the implementation of those features in Rust.
 
-## Conclusion
+## Generics
 
-<!-- TODO: table to explain how to choose a type ? -->
+Rust is a stronlgy typed language. This means you cannot rely on some [duck typing](https://en.wikipedia.org/wiki/Duck_typing) like you do with Python or Javascript for example. Rust *has* to know the exact type you are using for your code. When using generics, Rust needs a way to know what type you use in your method. Rust allows developers to use generics because it compiles the method for each types it is called with behinf the scenes. This means that if we call our `print_area_impl` with a `Rectangle` and a `Circle`, we will have in fact two compiled versions of this method in our executable. This process is called **monomorphisation** and is a **zero cost abstraction** meaning it adds no overload to our program execution time.
+
+The counter part to this abstraction is that if we call the method with a lot of different types, we will end up with a bigger executable in the end, because we will have a method for each type.
+
+## Trait objects
+
+Dynamic dispatch is another useful feature of Rust which allows returning different concrete types from a scope, such as the `match` statement we wrote earlier. However, Rust remains strongly typed, so how could it possibly violate its own rules? In fact, trait objects are nothing more than an object that links to a concrete type instance and its methods. Perfomring dynamic dispatch means that we will at runtime look inside our trait object and follow the pointer to the object's methods to know which one to call. This has the benefit of not generating any more static code when compiling, but has a runtime cost.
+
+# Conclusion
+
+<!-- TODO: table to explain how to choose a type, benchmark ? -->
