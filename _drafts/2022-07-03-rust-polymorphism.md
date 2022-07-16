@@ -166,6 +166,16 @@ The counter part to this abstraction is that if we call the method with a lot of
 
 Dynamic dispatch is another useful feature of Rust which allows returning different concrete types from a scope, such as the `match` statement we wrote earlier. However, Rust remains strongly typed, so how could it possibly violate its own rules? In fact, trait objects are nothing more than an object that links to a concrete type instance and its methods. Perfomring dynamic dispatch means that we will at runtime look inside our trait object and follow the pointer to the object's methods to know which one to call. This has the benefit of not generating any more static code when compiling, but has a runtime cost.
 
+## Benchmarks
+
+To further compare those two methods, I ran a benchmark comparing their performances using [criterion](https://github.com/bheisler/criterion.rs). The benchmark is available [here]() on GitHub if you want to run it locally. The times are given for my personal computer, it is only relevant to compare those time together. 
+
+|                                       | Generics: `print_area_impl` | Trait objects: `print_area_dyn` |
+| ------------------------------------- | --------------------------- | ------------------------------- |
+| **Reference to concrete object**: `&` | 0.5 ns                      | 2.5 ns                          |
+| **Reference to dyn object**: `&dyn`   | 1.0 ns                      | 2.9 ns                          |
+
 # Conclusion
 
-<!-- TODO: table to explain how to choose a type, benchmark ? -->
+To conclude, we have two different choice for the type of the parameter for our `print_area` method. Using generics will provide great performances, at the cost of a bigger executable. On the other hand, using trait objects has an oposite effect: bad performances and a smaller executable.
+Therefor, the choice of the method you want to use depends on your use case. Although, in my opinion, the use of generics with trait bounds is probably the best choice in most situations. If you do provide your method as an external API, consider adding the `?Sized` trait bound for a compability with trait objects, the users of your crate will probably be grateful!
