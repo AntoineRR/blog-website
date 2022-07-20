@@ -4,13 +4,13 @@ title: Rust polymorphism - From abstract classes to traits
 mathjax: false
 ---
 
-I often face challenges when developing in Rust. I guess it is a mandatory path when you mostly used Object Oriented Programming (OOP) languages before, and suddenly have to adapt to a new way of sharing behavior between structures. Rust provides **traits** to help structuring code, and I really like those, although it is sometimes difficult to work with.
+I guess facing challenges when developing in Rust is a mandatory path when you mostly used Object Oriented Programming (OOP) languages before. In this article, I want to highlight different ways of creating a function with a parameter that has an unknown concrete type at the time of writing the code.
 
 <!--more-->
 
 # A tale of building a function
 
-Let's say we want to create a really simple project for calculating the 2D area of various shapes. To build this in Rust, we just have to define several structs that will have one shared behavior: **the ability to calculate their area**. Here is probably how we would do it using the trait system:
+Let's say we want to create a really simple project for calculating the 2D area of various shapes. To build this in Rust, we just have to define several structs that will have one shared behavior: *the ability to calculate their area*. Rust provides **traits** to help us factorize our code, and more. Here is probably how we would do it using the trait system:
 
 {% highlight rust %}
 pub trait Shape {
