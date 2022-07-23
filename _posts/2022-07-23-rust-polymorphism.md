@@ -188,7 +188,7 @@ We could sum that up saying trait objects favor *memory usage* over *performance
 
 ## Benchmarks
 
-To further compare those two methods, I ran a benchmark comparing their performances using [criterion](https://github.com/bheisler/criterion.rs). The benchmark is available [here]() on GitHub if you want to run it locally. The times are given for my personal computer, it is only relevant to compare those times relative to each others and you should not care about the absolute values. 
+To further compare those two methods, I ran a benchmark comparing their performances using [criterion](https://github.com/bheisler/criterion.rs). The benchmark is available [here](https://github.com/AntoineRR/rust-polymorphism-benchmark) on GitHub if you want to run it locally. The times are given for my personal computer, it is only relevant to compare those times relative to each others and you should not care about the absolute values. 
 
 |                                       | Generics: `print_area_impl` | Trait objects: `print_area_dyn` |
 | ------------------------------------- | --------------------------- | ------------------------------- |
