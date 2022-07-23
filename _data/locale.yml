@@ -19,7 +19,7 @@ en: &EN
   FOLLOW_US               : "Follow us on [NAME]."
   EMAIL_ME                : "Send me an Email."
   EMAIL_US                : "Send us an Email."
-  COPYRIGHT_DATES         : "2021"
+  COPYRIGHT_DATES         : "2022"
 
 en-GB:
   <<: *EN
@@ -50,7 +50,7 @@ fr: &FR
   FOLLOW_US               : "Suivez-nous sur [NAME]."
   EMAIL_ME                : "Envoyez-moi un courriel."
   EMAIL_US                : "Envoyez-nous un courriel"
-  COPYRIGHT_DATES         : "2021"
+  COPYRIGHT_DATES         : "2022"
   DONATE                  : "Faites un don de [NAME]."
 
 fr-BE:

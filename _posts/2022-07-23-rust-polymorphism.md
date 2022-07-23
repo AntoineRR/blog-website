@@ -2,6 +2,7 @@
 layout: article
 title: Rust polymorphism - From abstract classes to traits
 mathjax: false
+show_subscribe: false
 ---
 
 I guess facing challenges when developing in Rust is a mandatory path when you mostly used Object Oriented Programming (OOP) languages before. In this article, I want to highlight different ways of creating a function with a parameter that has an unknown concrete type at the time of writing the code.
