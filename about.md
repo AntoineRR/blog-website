@@ -15,8 +15,10 @@ titles:
 key: page-about
 ---
 
-Just say something about yourself. :+1:
+Hi and thank you for checking my blog. :slightly_smiling_face: About me:
+- **Name**: Antoine Romero-Romero
+- **Nationality**: French :fr:
+- **Based in**: Dublin, Ireland :ireland:
+- **Hobbies**: Coding, Piano, Video games, Bouldering, Calisthenics
 
-{% highlight javascript %}
-(() => console.log('hello, world!'))();
-{% endhighlight %}
+Feel free to check my work on [GitHub](https://github.com/AntoineRR)!
