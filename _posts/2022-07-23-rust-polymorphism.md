@@ -122,14 +122,14 @@ Finally, this code compiles! We are now using a trait object to store the `shape
 We could have used a smart pointer instead of a simple reference, for example a `Box`.
 {:.info}
 
-There is one drawback to using a trait object though... We cannot use our previous `print_area` function with this `shape` variable! Indeed, our previous function is using generics, and what Rust doesn't tell you explicitely is that every generic types are expected to implement `Sized` by default!
+There is one drawback to using a trait object though... We cannot use our previous `print_area` function with this `shape` variable! Indeed, our previous function is using generics, and what Rust doesn't tell you explicitly is that every generic types are expected to implement `Sized` by default!
 
 `Sized` is a trait that is automatically implemented for every type that has a size known at compile time.
 {:.info}
 
 As we use `shape` as an argument for our `print_area` function, Rust will understand that our generic type `T` is `dyn Shape`, which again is not `Sized`.
 
-Fortunatelly, there is a way to specify that a function's argument does not have to necesseraly be `Sized`, and it is with the special `?Sized` syntax. Here is how we should rewrite our functions to make them work using a trait object as an argument:
+Fortunately, there is a way to specify that a function's argument does not have to necessarily be `Sized`, and it is with the special `?Sized` syntax. Here is how we should rewrite our functions to make them work using a trait object as an argument:
 
 {% highlight rust %}
 // First function, using the full `where` syntax:
@@ -172,7 +172,7 @@ Let's compare the two methods we highlighted. As we saw before, the first three 
 
 ## Generics
 
-Rust is a stronlgy typed language. This means you cannot rely on [duck typing](https://en.wikipedia.org/wiki/Duck_typing) like you do with *Python* or *Javascript* for example. Rust *has* to know the exact type you are using in your code. When using generics, Rust needs a way to know what concrete type you use in your function. Rust allows developers to use generics because it compiles the function for each type it is called with behind the scenes. This means that if we call our `print_area_impl` with a `Rectangle` and a `Circle`, we will have in fact two compiled versions of this function in our executable.
+Rust is a strongly typed language. This means you cannot rely on [duck typing](https://en.wikipedia.org/wiki/Duck_typing) like you do with *Python* or *Javascript* for example. Rust *has* to know the exact type you are using in your code. When using generics, Rust needs a way to know what concrete type you use in your function. Rust allows developers to use generics because it compiles the function for each type it is called with behind the scenes. This means that if we call our `print_area_impl` with a `Rectangle` and a `Circle`, we will have in fact two compiled versions of this function in our executable.
 
 This process is called **monomorphisation** and is a **zero cost abstraction** meaning it adds no overload to our program execution time.
 {:.info}
@@ -200,5 +200,5 @@ We can notice that specifying a generic type as the `shape` argument is 3 to 5 t
 
 # Conclusion
 
-We have two different choice for the type of the parameter for our `print_area` function. Using generics will provide great performances, at the cost of a bigger executable. On the other hand, using trait objects has an oposite effect: bad performances but a smaller executable.
-Therefor, the choice of the method you want to use depends on your use case. Although, in my opinion, the use of generics with trait bounds is probably the best choice in most situations. If you do provide your function as an external API, consider adding the `?Sized` trait bound for a compability with trait objects, the users of your crate will probably thank you!
+We have two different choice for the type of the parameter for our `print_area` function. Using generics will provide great performances, at the cost of a bigger executable. On the other hand, using trait objects has an opposite effect: bad performances but a smaller executable.
+Therefor, the choice of the method you want to use depends on your use case. Although, in my opinion, the use of generics with trait bounds is probably the best choice in most situations. If you do provide your function as an external API, consider adding the `?Sized` trait bound for a compatibility with trait objects, the users of your crate will probably thank you!
