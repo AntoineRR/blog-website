@@ -67,6 +67,12 @@ paths:
   rss     : # "/feed.xml" (default)
 
 
+## => Collections
+##############################
+collections:
+  projects:
+    output: true
+
 ## => Post
 ##############################
 ## excerpt
