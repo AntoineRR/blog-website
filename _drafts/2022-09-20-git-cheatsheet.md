@@ -55,7 +55,7 @@ Alright, now that we are back to a single commit including the fix, let's push i
 
 In fact, in this situation, we want to override the previous "bad" commit with our new "fixed" one. We have to force push our commit to the remote branch:
 ```
-git push origin +<branch_name>
+git push origin +<branch-name>
 ```
 
 The `+` sign in front of the branch name means we are force pushing! This is a really nice shortcut I often use to fix my commits that where pushed online.
@@ -68,11 +68,39 @@ git commit --amend --no-edit -a
 
 This magic command will automatically merge your current changes into the previous commit, without changing the commit message!
 
-# In case of a mistake...
+# When working on several branches...
 
+I sometimes work on several features in parallel, and develop each of them in their on git branch. I create those branch using:
 ```
-git reset
+git checkout -b <branch-name>
 ```
+The `-b` flag creates the branch and makes you move to this new branch. Then I can do some changes to the files, and I sometimes have to move to another branch, while my work is not done on the branch I am on! This is annoying because git will not let you `git checkout <branch-name>` while you have uncommited changes on your current branch. You could then commit your changes with a temporary commit, but I do not really like this solution (remember I like clean commit histories :slightly_smiling_face:). One thing I always do in this case is:
+```
+git stash
+```
+
+This will store all your changes in a "stash", and leave you with a clean working tree. In case you had new files, these must be added with `git add` before the stash to be put in the stash too. If you want to add some useful information for your future self to your stash, do:
+```
+git stash save <message to remember what I was doing>
+```
+
+Once you did this, you can checkout to the branch you wanted, do whatever you wanted and come back to the previous branch. Your stashed changes can then be applied again by simply doing:
+```
+git stash pop
+```
+
+This will apply the changes from the last stash you did. But what if you stashed several things and want to apply a stash you did long ago? You will then need to list your stash, and find the one you want to apply:
+```
+git stash list
+```
+
+This is where having saved your stash with a special message becomes useful. It is then easier to find in the list. The important thing to remember about the stash you want to apply is its number. All you have to do to apply it afterwards is:
+```
+git stash pop <number>
+```
+
+Note that the `pop` command will apply and delete your stash. If you want to apply the stash and keep it in your stash list, use `git stash apply`.
+{:.info}
 
 # Some other useful commands
 
