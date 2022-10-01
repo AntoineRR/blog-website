@@ -107,7 +107,9 @@ Note that the `pop` command will apply and delete your stash. If you want to app
 ```
 git status
 ```
+I use it all the time before making any commit, to make sur I added the files I want. This will log the files affected by your modifications, in green for the ones you added with `git add` and red for the one you didn't add.
 
 ```
 git log
 ```
+This command will log all the last commits on the project. Simply type `q` to stop browsing the commit history. It can be useful to make sure you will `git commit --amend` the right commit and to check if an interactive rebase (`git rebase -i`) did what you wanted.
