@@ -9,6 +9,8 @@ As a software development engineer, I obviously use git **a lot**. I always pref
 
 <!--more-->
 
+![Git](https://raw.githubusercontent.com/AntoineRR/blog-website/master/assets/images/git.png){:.rounded}
+
 I won't be going over what is git and why you should use it, but only share some handy command lines :slightly_smiling_face:
 {:.info}
 
