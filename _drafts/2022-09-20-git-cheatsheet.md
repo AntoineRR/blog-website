@@ -5,7 +5,7 @@ mathjax: false
 show_subscribe: false
 ---
 
-As a software development engineer, I obviously use git **a lot**. I always preferred to use the command line for git as it is a knowledge that does not depend on a specific GUI application or IDE. Commits after commits, I realized I often use the same commands over and over again and decided to share the most important ones here.
+As a software development engineer, I obviously use git **a lot**. I always preferred to use the command line for git as it is a knowledge that does not depend on a specific GUI application or IDE. Commits after commits, I realized I often use the same commands over and over again and decided to share the most useful ones here.
 
 <!--more-->
 
@@ -44,11 +44,11 @@ Those commands have more to offer, and I also use them in different *flavors*. F
 - You can add and commit your modified files in one command using `git commit -am "<put your commit message here>"`. However, this will not add the new files, only the files you modified! I still use the `-a` flag a lot when I only modified files, because I can skip the `git add` command in this case (being lazy can save time :slightly_smiling_face:).
 - You can use git push only if your branch exists on the remote server. If it doesn't exists because you created it on your local repository, you can push it to the remote server after committing your code using `git push --set-upstream <branch-name>`.
 
-# Oh god I messed up my commit history...
+# Oh no, I messed up my commit history...
 
 Good, you committed your changes and pushed them online! Now, your [CI/CD](https://en.wikipedia.org/wiki/CI/CD) pipeline with all the unit tests runs and... ***Ouch***. Some tests are failing. You made a mistake and have to do some changes on your code to fix them.
 
-Ok, no big deal, you write a fix on your local project, commit it and push it again online. The tests are now passing again! But... You added a new commit that is not really useful, and it just leaves a *noisy* commit history. If you are like me and like to have a clean history to remember what commit had what effect, this is annoying. How can we avoid such issue?
+Ok, no big deal, you write a fix on your local project, commit it and push it again online. The tests are now passing! But... You added a new commit that is not really useful, and it just leaves a *noisy* commit history. If you are like me and like to have a clean history to remember what commit had what effect, this is annoying. How can we avoid such issue?
 
 Be very careful when rewriting your commit history! It is a powerful yet dangerous thing to do (you probably don't want to end up dropping a commit or merging your commit with one from someone else)!
 {:.error}
@@ -75,9 +75,9 @@ pick b4dcb59 feat: does something
 fixup ece6408 fix: tests
 ```
 
-Then save and close the file (`Ctrl+X` in nano editor, `:wq` for vim). You will have a single commit as a result, with the message from the first commit (the message of the second commit will be dropped)! The commit history is now much cleaner, and it appears as if you didn't made a mistake at all (what a genius)!
+Then save and close the file (`Ctrl+X` in nano editor, `:wq` for vim). You will have a single commit as a result, with the message from the first commit (the message of the second commit will be dropped)! The commit history is now much cleaner, and it appears as if you didn't make a mistake at all (what a genius)!
 
-There are other keywords you can use instead of `fixup`, those are detailed in the comments below your commits, in the file you have to modify when running the command.
+There are other keywords you can use instead of `fixup`, those are detailed in the file you have to modify when running the command, in the comments below your commits.
 {:.info}
 
 ## Gotta go fast: commit amend
@@ -112,7 +112,7 @@ As you did some modifications to the commit history, check if you got the expect
 
 # From branch to branch
 
-I sometimes work on several features in parallel, and develop each of them in their on git branch. I create those branch using:
+I sometimes work on several features in parallel, and develop each of them on their own git branch. I create those branches using:
 ```console
 $ git checkout -b <branch-name>
 ```
@@ -122,7 +122,7 @@ The `-b` flag creates the branch and the `checkout` command makes you move to th
 $ git stash
 ```
 
-This will store all your changes in a "stash", and leave you with a clean working tree. In case you had new files, these must be added with `git add` before for them to end up in your stash. The drawback of this method is that I sometimes have several stash and do not remember what they correspond to. If you want to add some useful information for your future self to your stash, simply add `save` followed by your message:
+This will store all your changes in a "stash", and leave you with a clean working tree. In case you had new files, these must be added with `git add` before for them to end up in your stash. The drawback of this method is that I sometimes have several stashes and do not remember what they correspond to. If you want to add some useful information for your future self to your stash, simply add `save` followed by your message:
 ```console
 $ git stash save <message to remember what I was doing>
 ```
@@ -132,7 +132,7 @@ Once you did this, you can checkout to the branch you wanted, do whatever you ha
 $ git stash pop
 ```
 
-This will apply the changes from the **last** stash you did. But what if you stashed several things and want to apply a stash you did a long time ago? You will then need to list your stash, and find the one you want to apply. Indeed there is a command for doing exactly this:
+This will apply the changes from the **last** stash you did. But what if you stashed several things and want to apply a stash you did a long time ago? You will then need to list your stashes, and find the one you want to apply. Unsurprisingly, there is a command for doing exactly this:
 ```console
 $ git stash list
 ```
