@@ -11,7 +11,7 @@ As a software development engineer, I obviously use git **a lot**. I always pref
 
 ![Git](https://raw.githubusercontent.com/AntoineRR/blog-website/master/assets/images/git.png){:.rounded}
 
-I won't be going over what is git and why you should use it, but only share some handy command lines :slightly_smiling_face:
+I won't be going over what is git and why you should use it, but only share some handy command lines.
 {:.info}
 
 # Add, commit, push!
@@ -43,7 +43,7 @@ To choose a useful commit message, I like to follow the [conventional commit](ht
 
 Those commands have more to offer, and I also use them in different *flavors*. For example:
 - You can add only a subset of the files you modified by specifying them: `git add file1 file2 file3 ...` instead of adding everything. The files you didn't add will not be committed.
-- You can add and commit your modified files in one command using `git commit -am "<put your commit message here>"`. However, this will not add the new files, only the files you modified! I still use the `-a` flag a lot when I only modified files, because I can skip the `git add` command in this case (being lazy can save time :slightly_smiling_face:).
+- You can add and commit your modified files in one command using `git commit -am "<put your commit message here>"`. However, this will not add the new files, only the files you modified! I still use the `-a` flag a lot when I only modified files, because I can skip the `git add` command in this case (being lazy can save time).
 - You can use git push only if your branch exists on the remote server. If it doesn't exists because you created it on your local repository, you can push it to the remote server after committing your code using `git push --set-upstream <branch-name>`.
 
 # Oh no, I messed up my commit history...
