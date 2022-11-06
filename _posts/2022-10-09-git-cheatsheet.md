@@ -9,6 +9,8 @@ As a software development engineer, I obviously use git **a lot**. I always pref
 
 <!--more-->
 
+*Updated 06/11/2022*
+
 ![Git](https://raw.githubusercontent.com/AntoineRR/blog-website/master/assets/images/git.png){:.rounded}
 
 I won't be going over what is git and why you should use it, but only share some handy command lines.
@@ -19,7 +21,7 @@ I won't be going over what is git and why you should use it, but only share some
 After you did your changes, you probably want to commit and push them on the remote server. This is where the git *holy trinity* finds its use:
 
 ```console
-$ git add *
+$ git add --all
 ```
 *to add all files*
 
@@ -44,6 +46,10 @@ To choose a useful commit message, I like to follow the [conventional commit](ht
 Those commands have more to offer, and I also use them in different *flavors*. For example:
 - You can add only a subset of the files you modified by specifying them: `git add file1 file2 file3 ...` instead of adding everything. The files you didn't add will not be committed.
 - You can add and commit your modified files in one command using `git commit -am "<put your commit message here>"`. However, this will not add the new files, only the files you modified! I still use the `-a` flag a lot when I only modified files, because I can skip the `git add` command in this case (being lazy can save time).
+
+It is better to check that you are not about to commit something you don't want to push on the remote server using `git status` before committing.
+{:.warning}
+
 - You can use git push only if your branch exists on the remote server. If it doesn't exists because you created it on your local repository, you can push it to the remote server after committing your code using `git push --set-upstream <branch-name>`.
 
 # Oh no, I messed up my commit history...
@@ -104,10 +110,10 @@ Oh! It won't let us push because we changed our commit history...
 
 In fact, in this situation, we want to override the previous *bad* commit (on the server) with our new *fixed* one (on our local machine). We have to force push our commit to the remote branch:
 ```console
-$ git push origin +<branch-name>
+$ git push --force-with-lease
 ```
 
-The `+` sign in front of the branch name means we are force pushing! This is a really nice shortcut I often use to fix my commits that where pushed online.
+The `--force-with-lease` flag means we are force pushing, but not without checking what we are overriding on the server first! It is a better choice than the usual `--force` flag or the `git push origin +<branch-name>` command as it will not push your changes if the remote branch was modified by one of your coworkers.
 
 As you did some modifications to the commit history, check if you got the expected result (with `git log`) before force pushing your changes online! The online changes will be overwritten with your local ones!
 {:.error}
