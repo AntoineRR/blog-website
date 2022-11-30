@@ -67,9 +67,73 @@ We do not have more information about the type of the error by using anyhow comp
 
 Let's now see how to use anyhow based on the problems you could face during error handling!
 
-## Returning an Err containing a String
+## Creating an Error
 
-## Returning a custom Error
+### From a simple &str
+
+Sometimes, you may want to create an `Err` value by using `Err("Failure!".into())` but using it as a `anyhow::Result` variant will make the compiler display this error:
+
+mismatched types
+expected struct `anyhow::Error`, found `&str`
+{:.error}
+
+In this case, you want to use the `anyhow!` macro. It will convert your `&str` or any type implementing `Debug` and `Display` to an error.
+{%highlight rust%}
+#[derive(Debug)]
+struct MyError;
+
+impl std::fmt::Display for MyError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "Bad :(")
+    }
+}
+
+fn failing_function() -> Result<String> {
+    let err1: Result<String> = Err(anyhow!("Oh no!"));
+    let err2: Result<String> = Err(anyhow!(MyError));  // MyError must implement Debug and Display
+    return err1;  // or err2, both have the appropriate type
+}
+{%endhighlight%}
+
+### From a more sophisticated enum
+
+You can also easily use an enum to represent your custom errors.
+
+{%highlight rust%}
+#[derive(Debug)]
+enum MyErrors {
+    LetsFixThisTomorrowError,
+    ThisDoesntLookGoodError,
+    ImmaGetFiredError,
+}
+
+impl std::fmt::Display for MyErrors {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Self::LetsFixThisTomorrowError => write!(f, "Doesn't look too bad"),
+            Self::ThisDoesntLookGoodError => write!(f, "Let's get to work"),
+            Self::ImmaGetFiredError => write!(f, "Wish me luck"),
+        }
+    }
+}
+
+fn failing_function() -> Result<String> {
+    Err(anyhow!(MyErrors::LetsFixThisTomorrowError))
+}
+{%endhighlight%}
+
+### The purpose of the Error trait
+
+You may have noticed that we implemented `Debug` and `Display` only on our errors, but not the `std::error::Error` trait. This trait isn't mandatory for the `anyhow!` macro. However, you should probably still implement it, for the following reasons:
+- It helps people to immediately spot the purpose of your struct
+- It standardizes what struct can be considered as an error
+- It has a `source` attribute for additional information
+
+Therefore, you should add this one more line to make our enum a "real" error!
+
+{%highlight rust%}
+impl std::error::Error for MyErrors {}
+{%endhighlight%}
 
 ## Adding context to errors
 
