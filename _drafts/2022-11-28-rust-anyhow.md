@@ -237,3 +237,7 @@ fn bail_macro() -> Result<()> {
     bail!("Error occured!");
 }
 {%endhighlight%}
+
+# In summary
+
+The `anyhow` crate makes error handling easier by abstracting away error types and providing several useful methods. You must however note that this may be at the cost of control over the errors you are manipulating. Even though downcasting is a thing, it should be avoided when possible. However, I enjoy using anyhow in my projects because I like the features it provides, and I hope you learned something useful from this post!
